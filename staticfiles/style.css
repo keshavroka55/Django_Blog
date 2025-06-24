@@ -1,0 +1,18 @@
+body{
+    background-color: rgb(10, 50, 52);
+    
+
+}
+h1 {
+    text-align: center;
+    color: darkblue;
+    font-family: Arial, sans-serif;
+    margin-top: 40px;
+}
+
+h2 {
+    text-align: center;
+    color: gray;
+    font-family: Verdana, sans-serif;
+    font-weight: normal;
+}

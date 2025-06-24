@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-60^q17i$!p9!&-0t_+-fk%^*1&&(*t$$$^wkrl@y1+h*o#9789
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -62,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # vercel deploying.
 ]
 
 ROOT_URLCONF = 'My_first.urls'
@@ -157,5 +158,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/keshav/'
 LOGOUT_REDIRECT_URL = '/keshav/'
+
+# while deploping in the vercel...
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
