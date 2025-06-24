@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block home %}
+<h1 class="text-center my-4">Registration Form</h1>
+{% endblock %}
+
+{% block content %}
+<style>
+  form {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .field-wrapper {
+    margin-bottom: 15px;
+  }
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+  }
+
+  .errorlist {
+    color: #d9534f;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+
+  button.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+    margin-top: 10px;
+  }
+
+  a.btn-primary {
+    margin-top: 10px;
+    display: inline-block;
+    text-decoration: none;
+  }
+
+  a.btn-primary:hover {
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+</style>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  <div class="field-wrapper">
+    <label for="{{ form.username.id_for_label }}">Username</label>
+    {{ form.username }}
+    {% if form.username.errors %}
+      <ul class="errorlist">{{ form.username.errors }}</ul>
+    {% endif %}
+  </div>
+
+  <div class="field-wrapper">
+    <label for="{{ form.email.id_for_label }}">Email</label>
+    {{ form.email }}
+    {% if form.email.errors %}
+      <ul class="errorlist">{{ form.email.errors }}</ul>
+    {% endif %}
+  </div>
+
+  <div class="field-wrapper">
+    <label for="{{ form.password1.id_for_label }}">Password</label>
+    {{ form.password1 }}
+    {% if form.password1.errors %}
+      <ul class="errorlist">{{ form.password1.errors }}</ul>
+    {% endif %}
+  </div>
+
+  <div class="field-wrapper">
+    <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+    {{ form.password2 }}
+    {% if form.password2.errors %}
+      <ul class="errorlist">{{ form.password2.errors }}</ul>
+    {% endif %}
+  </div>
+
+  <button type="submit" class="btn btn-primary">Register</button>
+  <button type="button" class="btn btn-primary" onclick="location.href='{% url 'login' %}'">Login</button>
+
+
+</form>
+
+{% endblock %}

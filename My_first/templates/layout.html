@@ -1,0 +1,58 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href={%static "static/style.css"%}>
+     <title>
+        {% block titile %}
+        Django 
+        {% endblock %}      
+    </title>
+<h1>
+    {% block home %}
+    
+    {% endblock %}
+</h1>
+
+</head>
+<body class='bg-blue-500'>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary bg-black">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{%url 'tweet_list'%}">BlogNest</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <a href="{%url 'tweet_create'%}" class="btn btn-primary mx-2">Create Tweet</a>
+      <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Tweet Home</a>
+      {% if user.is_authenticated %}
+      <form action="{%url 'logout'%}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type = "submit">Logout</button></form>
+      {% else  %}
+      <a href="{%url 'register'%}" class="btn btn-primary mx-2">Register</a>
+      <a href="{%url 'login'%}" class="btn btn-primary mx-2">Login</a>
+
+      {% endif %}
+    </div>
+  </div>
+</nav>
+<div class='container'>
+    {% block content %}
+    <h1 class="text-center color:black mt-4">Welcome to BlogNest Website!</h1>
+    <h2 class="text-center color:black mt-2">Share your thoughts and memory.</h2>
+
+    {% endblock %}
+</div>  
+</body>
+</html>

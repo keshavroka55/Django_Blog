@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block home %}
+{% endblock %}
+
+{% block content %}
+<style>
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        object-position: top;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .card-title {
+        font-weight: 600;
+        color: #343a40;
+        font-size: 20px;
+    }
+
+    .card-text {
+        font-size: 16px;
+        color: #6c757d;
+    }
+
+    .container.row.gap-3 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: flex-start;
+    }
+</style>
+
+<div class="container row gap-3">
+
+    {% for tweets in tweet %}
+    <div class="card my-4 mx-2" style="width: 18rem;">
+        <img src="{{tweets.photo.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{tweets.user.username}}</h5>
+            <p class="card-text">{{tweets.text}}</p>
+            {% if tweets.user == user  %}
+            <a href="{% url 'tweet_edit' tweets.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'tweet_delete' tweets.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

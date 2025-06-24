@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block home %}
+<h1 class="text-center my-4">Login to BlogNest</h1>
+{% endblock %}
+
+{% block content %}
+<style>
+  form {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  form p {
+    margin-bottom: 15px;
+  }
+
+  button.btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-weight: 600;
+  }
+
+  p {
+    text-align: center;
+    margin-top: 15px;
+  }
+
+  a {
+    color: #0d6efd;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-primary" type="submit">Login</button>
+</form>
+
+<p>
+    Don't have an account? <a href="{% url 'register' %}">Register here</a>
+</p>
+{% endblock %}
