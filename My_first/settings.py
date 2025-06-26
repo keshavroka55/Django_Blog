@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-60^q17i$!p9!&-0t_+-fk%^*1&&(*t$$$^wkrl@y1+h*o#9789
 DEBUG = True
 
 # Allowed hosts
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['django-blog-z443.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
