@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-60^q17i$!p9!&-0t_+-fk%^*1&&(*t$$$^wkrl@y1+h*o#9789
 DEBUG = True
 
 # Allowed hosts
-ALLOWED_HOSTS = ['My_first.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -64,7 +64,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # vercel deploying.
 ]
 
 ROOT_URLCONF = 'My_first.urls'
