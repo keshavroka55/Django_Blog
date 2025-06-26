@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # vercel deploying.
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # vercel deploying.
 ]
 
 ROOT_URLCONF = 'My_first.urls'
@@ -161,6 +161,6 @@ LOGOUT_REDIRECT_URL = '/keshav/'
 
 # while deploping in the vercel...
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
