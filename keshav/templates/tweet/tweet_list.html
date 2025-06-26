@@ -53,6 +53,7 @@
             {% if tweets.user == user  %}
             <a href="{% url 'tweet_edit' tweets.id %}" class="btn btn-primary">Edit</a>
             <a href="{% url 'tweet_delete' tweets.id %}" class="btn btn-danger">Delete</a>
+            
             {% endif %}
         </div>
     </div>

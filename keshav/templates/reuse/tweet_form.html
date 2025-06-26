@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block home %}
+the search one of ajax auto_complete
+{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Tweet</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function() {
+        $("#user-search").autocomplete({
+            source: "/autocomplete/"
+        });
+    });
+</script>
+
+<!-- Include jQuery UI CSS/JS -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+{% endblock %}

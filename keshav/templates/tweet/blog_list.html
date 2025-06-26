@@ -1,19 +1,124 @@
-{% comment %} <!DOCTYPE html>
-<html>
-<head>
-    <title>All Blogs</title>
-</head>
-<body>
-    <h1>Blog Posts</h1>
-    <a href="{% url 'blog-create' %}">Create New Blog</a>
-    {% for blog in blogs %}
-        <div style="border: 1px solid black; padding: 10px; margin: 10px;">
-            <h2>{{ blog.title }}</h2>
-            <p><strong>Author:</strong> {{ blog.author }} | <small>{{ blog.created_at }}</small></p>
-            <p>{{ blog.content|linebreaks }}</p>
-        </div>
+{% extends 'base.html' %}
+{% block content %}
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 30px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff !important;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 25px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      text-decoration: none;
+      color: #fff !important;
+    }
+
+    .blog-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .blog-card {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 25px 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .blog-title {
+      font-size: 28px;
+      color: #007bff;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .blog-subtitle {
+      font-size: 16px;
+      color: #6c757d;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .blog-author {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .blog-content {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      color: #444;
+    }
+
+    .blog-summary {
+      font-style: italic;
+      color: #777;
+      margin-bottom: 15px;
+    }
+
+    .blog-dates {
+      font-size: 14px;
+      color: #999;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .blog-card {
+        padding: 20px 15px;
+      }
+      .blog-title {
+        font-size: 22px;
+      }
+      .blog-content {
+        font-size: 16px;
+      }
+    }
+  </style>
+
+  <div class="blog-container">
+    <h1>All Blog Posts</h1>
+    <a href="{% url 'blog_create' %}" class="btn-primary">Create New Blog</a>
+
+    {% for blogs in blog %}
+      <article class="blog-card">
+        <h2 class="blog-title">{{ blogs.title }}</h2>
+        <h4 class="blog-subtitle">{{ blogs.subtitle }}</h4>
+        <p class="blog-author">By: {{ blogs.user.username }}</p>
+        <div class="blog-content">{{ blogs.content }}</div>
+        <p class="blog-summary">{{ blogs.summary }}</p>
+        <p class="blog-dates">Created: {{ blogs.created_at|date:"F j, Y, g:i a" }} | Updated: {{ blogs.updated_at|date:"F j, Y, g:i a" }}</p>
+      </article>
     {% empty %}
-        <p>No blog posts yet.</p>
+      <p style="text-align:center; color:#888;">No blog posts yet.</p>
     {% endfor %}
-</body>
-</html> {% endcomment %}
+  </div>
+{% endblock %}

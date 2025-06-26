@@ -27,6 +27,8 @@ urlpatterns = [
 
 
 
+
+
     # IMPORTANT ONE
     # while creating a sub file of app (keshav...)
     path('keshav/', include('keshav.urls')),

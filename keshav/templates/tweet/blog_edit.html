@@ -49,27 +49,24 @@
     a:hover {
         text-decoration: underline;
     }
-    .tweet-heading{
-        font-size: 30px;
 
+    .blog-heading {
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 20px;
     }
 </style>
 
 {% if blog_form.instance.pk %}
-<h1 class="tweet-heading mx-3 my-3">Tweet Edit</h1>
-
-{% else %} 
-<h1 class="tweet-heading mx-3 my-3">Create Tweet!</h1>
+    <h1 class="blog-heading">Edit Blog</h1>
+{% else %}
+    <h1 class="blog-heading">Create Blog</h1>
 {% endif %}
 
 <form method="post" enctype="multipart/form-data" class="form">
     {% csrf_token %}
-    {{ tweet_form.as_p }}
+    {{ blog_form.as_p }}
     <button class="btn btn-warning" type="submit">Submit</button>
-    <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Back</a>
-
+    <a href="{% url 'blog_list' %}" class="btn btn-primary mx-2">Back to Blog List</a>
 </form>
-
-
-
 {% endblock %}

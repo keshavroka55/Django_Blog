@@ -23,24 +23,31 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg-black">
   <div class="container-fluid">
     <a class="navbar-brand" href="{%url 'tweet_list'%}">BlogNest</a>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       </ul>
-      <form class="d-flex" role="search">
+      <form class="d-flex" role="search" method= 'get'>
+        {% comment %} action= {%url 'url path'%} {% endcomment %}
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success"  type="submit">Search</button>
       </form>
+      <a href="{%url 'homepage'%}" class="btn btn-primary mx-2">Home Page</a>
+      <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Tweet Page</a>
       <a href="{%url 'tweet_create'%}" class="btn btn-primary mx-2">Create Tweet</a>
-      <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Tweet Home</a>
+      <a href="{%url 'blog_create'%}" class="btn btn-primary mx-2">Create Blog</a>
+      <a href="{% url 'blog_list' %}" class="btn btn-primary mx-2">Read Blog</a>
+
+
       {% if user.is_authenticated %}
       <form action="{%url 'logout'%}" method="post">
         {% csrf_token %}
         <button class="btn btn-danger" type = "submit">Logout</button></form>
       {% else  %}
-      <a href="{%url 'register'%}" class="btn btn-primary mx-2">Register</a>
+      {% comment %} <a href="{%url 'register'%}" class="btn btn-primary mx-2">Register</a> {% endcomment %}
       <a href="{%url 'login'%}" class="btn btn-primary mx-2">Login</a>
 
       {% endif %}
