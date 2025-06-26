@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-60^q17i$!p9!&-0t_+-fk%^*1&&(*t$$$^wkrl@y1+h*o#9789
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# Allowed hosts
+ALLOWED_HOSTS = ['My_first.onrender.com']
 
 
 # Application definition
@@ -54,6 +55,7 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # what is domain mapping (for production level of knowledge you need it keshav)
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
