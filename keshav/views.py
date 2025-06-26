@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Message
-from .forms import Tweetform, SignUpForm
+from .forms import Tweetfromtext,Tweetform, SignUpForm
 from django.contrib.auth import login
 
 
@@ -27,22 +27,22 @@ def tweet_create(request):
 
     else:
         form = Tweetform()
-        return render (request, 'tweet/tweet_form.html',{'form':form})
+        return render (request, 'tweet/tweet_edit.html',{'form':form})
     
 
 @login_required    
 def tweet_edit(request,tweet_id):
     tweet = get_object_or_404(Message,pk=tweet_id, user= request.user)
     if request.method == 'POST':
-        form = Tweetform(request.POST, request.FILES,instance=tweet)
+        form = Tweetfromtext(request.POST, request.FILES,instance=tweet)
         tweet = form.save(commit=False)
         tweet.user = request.user
         tweet.save()
         return redirect('tweet_list')
         
     else:
-        form = Tweetform()
-        return render (request,'tweet/create_tweet.html',{'form': form})
+        form = Tweetfromtext(instance=tweet) # this is resposible for show the previous text form model.
+    return render (request,'tweet/tweet_edit.html',{'form': form})
 @login_required
 def tweet_delete(request, tweet_id):
     tweet = get_object_or_404(Message,pk=tweet_id, user = request.user)
@@ -62,6 +62,3 @@ def SignUp_view(request):
     else:
         form = SignUpForm()
     return render(request,'registration/register.html', {'form': form})
-
-# def more(request):
-#     return render(request,'tweet/more_')

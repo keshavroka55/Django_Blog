@@ -1,0 +1,69 @@
+{% comment %} {% extends "base.html" %}
+
+{% block content %}
+<style>
+.form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form p {
+    margin-bottom: 15px;
+}
+
+.form label {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.form input[type="text"],
+.form textarea,
+.form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-top: 5px;
+}
+
+.btn-warning {
+    margin-top: 18px;
+}
+
+a {
+    display: inline-block;
+    margin-top: 20px;
+    mx: 2;
+    text-decoration: none;
+    color: #0d6efd;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+</style>
+
+<h1>
+    {% if form.instance.pk %} 
+        Edit Tweet!
+
+    {% else %}
+        Create Tweet!
+    {% endif %}
+</h1>
+
+<form method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-warning" type="submit">Submit</button>
+    <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Back</a>
+
+</form>
+
+{% endblock %} {% endcomment %}

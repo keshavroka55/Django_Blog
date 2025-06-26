@@ -9,6 +9,12 @@ class Tweetform(forms.ModelForm):
         model = Message
         fields = ['text','photo']
 
+# this is for only edit the text not the photo
+class Tweetfromtext(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['text']
+
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email Address.')

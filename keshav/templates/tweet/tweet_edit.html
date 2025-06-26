@@ -49,13 +49,17 @@
     a:hover {
         text-decoration: underline;
     }
+    .tweet-heading{
+        font-size: 30px;
+
+    }
 </style>
 
 {% if form.instance.pk %}
-    <h3>Edit Tweet..</h3>
-{% else %} 
-    <h3 class= "mx-3 my-3">Create Tweet</h3>
+<h1 class="tweet-heading mx-3 my-3">Tweet Edit</h1>
 
+{% else %} 
+<h1 class="tweet-heading mx-3 my-3">Create Tweet!</h1>
 {% endif %}
 
 <form method="post" enctype="multipart/form-data" class="form">
