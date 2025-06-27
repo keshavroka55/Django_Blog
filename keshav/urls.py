@@ -1,14 +1,24 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+
 
 urlpatterns = [
     path('', views.tweet_list, name='tweet_list'),
     path('create/', views.tweet_create, name='tweet_create'),
-    path('<int:tweet_id>/edit/', views.tweet_edit, name='tweet_edit'),
-    path('<int:tweet_id>/delete/', views.tweet_delete, name='tweet_delete'),
+    path('tweet/<int:tweet_id>/edit/', views.tweet_edit, name='tweet_edit'),
+    path('tweet/<int:tweet_id>/delete/', views.tweet_delete, name='tweet_delete'),
     path('login/', views.login, name='login'),
     path('register/', views.SignUp_view, name='register'),
     path('blogcreate/',views.blog_create, name='blog_create'),
     path('bloglist/',views.blog_list, name='blog_list'),
+    path('blog/<int:blog_id>/edit/', views.blog_edit, name='blog_edit'),
+    path('blog/<int:blog_id>/delete/', views.blog_delete, name='blog_delete'),
+    path('accounts/password-change/',views.custom_change_password, name='password_change'),
+    path('accounts/password-change/done/',views.password_change_done , name='password_change_done'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('userprofile/',views.profile_view, name='user_profile'),
+    path('userprofile/update',views.profile_edit, name='update_profile'),
+    # working on it.... showing the default django templates.
+ 
 
 ]

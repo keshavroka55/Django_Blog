@@ -4,6 +4,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Message,Blog
 from .forms import Tweetfromtext,Tweetform, SignUpForm, BlogForm
 from django.contrib.auth import login
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages
+from .forms import UserUpdateForm, ProfileUpdateForm
+from .models import UserProfile
 
 
 
@@ -35,6 +40,7 @@ def tweet_create(request):
 
 @login_required    
 def tweet_edit(request,tweet_id):
+    print("TWEET EDIT CALLED")
     tweet = get_object_or_404(Message,pk=tweet_id, user= request.user)
     if request.method == 'POST':
         tweet_form = Tweetfromtext(request.POST, request.FILES,instance=tweet)
@@ -50,10 +56,38 @@ def tweet_edit(request,tweet_id):
 def tweet_delete(request, tweet_id):
     tweet = get_object_or_404(Message,pk=tweet_id, user = request.user)
     if request.method == 'POST':
-        # not valid for required
         tweet.delete()
         return redirect('tweet_list')
     return render (request,'tweet/tweet_delete.html',{'tweet': tweet})
+
+
+@login_required    
+def blog_edit(request,blog_id):
+    print("BLOG EDIT CALLED")
+    blog = get_object_or_404(Blog,pk=blog_id, user= request.user)
+    if request.method == 'POST':
+        blog_form = BlogForm(request.POST, request.FILES,instance=blog)
+        if blog_form.is_valid():
+            blog = blog_form.save(commit=False)
+            blog.user = request.user
+            blog.save()
+            return redirect('blog_list')
+        else:
+            print(f"keshav. {blog_form.errors}")
+
+        
+    else:
+        blog_form = BlogForm(instance=blog) # this is resposible for show the previous text form model.
+    return render (request,'tweet/blog_edit.html',{'blog_form': blog_form})
+@login_required
+def blog_delete(request, blog_id):
+    blog = get_object_or_404(Blog,pk=blog_id, user = request.user)
+    if request.method == 'POST':
+        blog.delete()
+        return redirect('blog_list')
+    return render (request,'tweet/blog_delete.html',{'blog': blog})
+
+
 
 def SignUp_view(request):
     if request.method == 'POST':
@@ -69,7 +103,7 @@ def SignUp_view(request):
 
 def blog_list(request):
     blogs = Blog.objects.all().order_by('-created_at')
-    return render (request,'tweet/blog_list.html',{'blog': blogs})
+    return render (request,'tweet/blog_list.html',{'blogs': blogs})
 
 @login_required
 def blog_create(request):
@@ -85,16 +119,62 @@ def blog_create(request):
         blog_form = BlogForm()
         return render (request, 'tweet/blog_create.html',{'blog_form':blog_form})
     
-@login_required    
-def blog_edit(request,blog_id):
-    blog = get_object_or_404(Blog,pk=blog_id, user= request.user)
+@login_required
+def profile_view(request):
+    return render(request, 'registration/profile.html', {
+        'user': request.user,
+    })
+
+# password change 
+@login_required
+def custom_change_password(request):
+    print("Keshav")
     if request.method == 'POST':
-        blog_form = BlogForm(request.POST, request.FILES,instance=blog)
-        blog = blog_form.save(commit=False)
-        blog.user = request.user
-        blog.save()
-        return redirect('tweet_list')
-        
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Keep user logged in
+            messages.success(request, 'Your password was changed successfully!')
+            return redirect('password_change_done')  # your custom success page
     else:
-        blog_form = BlogForm(instance=blog) # this is resposible for show the previous text form model.
-    return render (request,'tweet/blog_edit.html',{'blog_form': blog_form})
+        form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'registration/password_change.html', {'form': form})
+
+# password change conformation 
+@login_required
+def password_change_done(request):
+    return render(request, 'registration/password_change_done.html')
+
+
+# this is for the user profilephoto and profile update
+
+@login_required
+def profile_view(request):
+    return render(request,'registration/profile.html')
+
+@login_required
+def profile_edit(request):
+    # This line ensures no error happens if userprofile is missing
+    profile, created = UserProfile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect('user_profile')  # reload profile page
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.userprofile)
+
+    return render(request, 'registration/edit_profile.html', {
+        'u_form': u_form,
+        'p_form': p_form
+  
+    })
+
+# blog edit and delete features.
+

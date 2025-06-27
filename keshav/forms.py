@@ -2,6 +2,7 @@ from django import forms
 from .models import Message,Blog
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import UserProfile
 
 
 class Tweetform(forms.ModelForm):
@@ -27,3 +28,13 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ['title','subtitle','content','summary']
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_image']

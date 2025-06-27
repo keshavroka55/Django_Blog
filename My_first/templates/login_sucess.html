@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4 rounded" style="max-width: 500px; margin: auto;">
+        <div class="card-body text-center">
+            <h2 class="card-title text-success mb-3">Login Successful</h2>
+            <p class="card-text fs-5">Welcome back, <strong>{{ user.username }}</strong>!</p>
+            <p class="text-muted">You have successfully logged in.</p>
+            
+            <div class="mt-4">
+                <a href="{% url 'homepage' %}" id="redirect-link" class="btn btn-outline-primary mx-2">Go to Home Page</a>
+                <script>
+                    setTimeout(function() {
+                      window.location.href = document.getElementById('redirect-link').href;
+                    }, 2000); // 2000 milliseconds = 2 seconds
+                </script>
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger mx-2">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

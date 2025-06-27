@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5" style="max-width: 700px;">
+    <h2>Edit Profile</h2>
+    <hr>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ u_form.first_name.label_tag }} {{ u_form.first_name }}
+        </div>
+        <div class="mb-3">
+            {{ u_form.last_name.label_tag }} {{ u_form.last_name }}
+        </div>
+        <div class="mb-3">
+            {{ u_form.email.label_tag }} {{ u_form.email }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_profile_image">Profile Image:</label><br>
+            {% if user.userprofile.profile_image %}
+                <img src="{{ user.userprofile.profile_image.url }}" class="rounded-circle mb-2" width="100">
+            {% else %}
+                <img src="{{ MEDIA_URL }}profile_images/default.jpg" class="rounded-circle mb-2" width="100">
+            {% endif %}
+            {{ p_form.profile_image }}
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Changes</button>
+        <a href="{% url 'user_profile' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

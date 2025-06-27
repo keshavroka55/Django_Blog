@@ -80,7 +80,7 @@
     }
 
     .blog-summary {
-      font-style: italic;
+      font-style: Bold;
       color: #777;
       margin-bottom: 15px;
     }
@@ -106,19 +106,46 @@
 
   <div class="blog-container">
     <h1>All Blog Posts</h1>
-    <a href="{% url 'blog_create' %}" class="btn-primary">Create New Blog</a>
+    <a href="{% url 'blog_create' %}" class="btn btn-primary">Create New Blog</a>
+    <a href="{% url 'homepage' %}" class="btn btn-secondary rounded" style="margin-top: -18px;">Back</a>
+    
 
-    {% for blogs in blog %}
+
+    {% for blog in blogs%}
       <article class="blog-card">
-        <h2 class="blog-title">{{ blogs.title }}</h2>
-        <h4 class="blog-subtitle">{{ blogs.subtitle }}</h4>
-        <p class="blog-author">By: {{ blogs.user.username }}</p>
-        <div class="blog-content">{{ blogs.content }}</div>
-        <p class="blog-summary">{{ blogs.summary }}</p>
-        <p class="blog-dates">Created: {{ blogs.created_at|date:"F j, Y, g:i a" }} | Updated: {{ blogs.updated_at|date:"F j, Y, g:i a" }}</p>
+        <div class="d-flex align-items-center">
+            <!-- Profile Image -->
+            <div class="me-3">
+                {% if user.userprofile.profile_image %}
+                    <img src="{{ user.userprofile.profile_image.url }}" class="rounded-circle" width="48" height="48" alt="Profile Image">
+                {% else %}
+                    {% comment %} <img src="{{ MEDIA_URL }}profile_images/default.jpg" class="rounded-circle" width="48" height="48" alt="Default Image"> {% endcomment %}
+                {% endif %}
+            </div>
+          
+            <!-- Name and Username -->
+            <div>
+              {% if blog.user == user %}
+              <strong>{{ user.first_name }} {{ user.last_name }}</strong><br>
+              <small class="text-muted">@{{ user.username }}</small>
+              {% endif %}
+            </div>
+        </div>
+        <h2 class="blog-title">{{ blog.title }}</h2>
+        <h4 class="blog-subtitle">{{ blog.subtitle }}</h4>
+        <div class="blog-content">{{ blog.content }}</div>
+        <p class="blog-summary">{{ blog.summary }}</p>
+        <p class="blog-dates">Created: {{ blog.created_at|date:"F j, Y, g:i a" }} | Updated: {{ blog.updated_at|date:"F j, Y, g:i a" }}</p>
+            {% comment %} the function of edit and delete the blogs. {% endcomment %}
+        {% if blog.user == user  %}
+        <a href="{% url 'blog_edit' blog.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>     
+        {% endif %}
+
       </article>
     {% empty %}
       <p style="text-align:center; color:#888;">No blog posts yet.</p>
     {% endfor %}
+
   </div>
 {% endblock %}

@@ -160,6 +160,10 @@ LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/keshav/'
 LOGOUT_REDIRECT_URL = '/keshav/'
 
+# redirect the user to the profile page after changing the password 
+LOGIN_REDIRECT_URL = '/profile/'
+
+
 # while deploping in the vercel...
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

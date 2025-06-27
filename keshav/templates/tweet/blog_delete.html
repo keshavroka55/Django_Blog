@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    .delete-container {
+        max-width: 600px;
+        margin: 80px auto;
+        padding: 25px;
+        background-color: #fff3cd;
+        border: 1px solid #ffeeba;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .delete-container h1 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #856404;
+        margin-bottom: 20px;
+    }
+
+    .delete-container form {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .btn {
+        min-width: 100px;
+    }
+</style>
+
+<div class="delete-container">
+    <h1 class="my-4">Are you sure you want to delete this tweet?</h1>
+    <form method="post" action="{% url 'blog_delete' blog.id %}">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete</button>
+        <a class="btn btn-success" href="{% url 'blog_list' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}
