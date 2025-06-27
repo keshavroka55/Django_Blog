@@ -7,7 +7,7 @@
         height: 200px;
         background: url('{% static "yourapp/images/banner.jpg" %}') center center/cover no-repeat;
         position: relative;
-        border-radius: 10px;
+        border-radius: 10px 10px 0 0;
     }
 
     .profile-pic-container {
@@ -17,8 +17,8 @@
         border: 5px solid white;
         border-radius: 50%;
         overflow: hidden;
-        width: 250px;
-        height: 250px;
+        width: 120px;
+        height: 120px;
         background: white;
     }
 
@@ -28,35 +28,93 @@
         object-fit: cover;
     }
 
-    .profile-info {
+    .card-body.profile-info {
         margin-top: 80px;
-        padding-left: 160px;
+        padding: 20px 30px;
+    }
+
+    .profile-info h3 {
+        font-size: 1.8rem;
+        margin-bottom: 5px;
     }
 
     .username-handle {
-        font-size: 1.2rem;
-        color: #555;
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 10px;
     }
 
     .btn-group {
-        margin-top: 20px;
+        margin-top: 25px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
     }
+
     .btn {
-    min-width: 130px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+        min-width: 130px;
+        font-weight: 500;
+        transition: all 0.3s ease;
     }
+
     .btn:hover {
-    transform: scale(1.05);
+        transform: scale(1.05);
     }
 
+    @media (max-width: 768px) {
+        .profile-banner {
+            height: 150px;
+        }
 
+        .profile-pic-container {
+            width: 100px;
+            height: 100px;
+            left: 20px;
+            bottom: -50px;
+        }
+
+        .card-body.profile-info {
+            margin-top: 70px;
+            padding: 20px;
+        }
+
+        .profile-info h3 {
+            font-size: 1.5rem;
+        }
+
+        .btn-group {
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .profile-pic-container {
+            width: 80px;
+            height: 80px;
+            bottom: -40px;
+            left: 15px;
+        }
+
+        .profile-info h3 {
+            font-size: 1.3rem;
+        }
+
+        .username-handle {
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+    }
 </style>
 
 <div class="container mt-5" style="max-width: 800px;">
     <div class="card shadow">
         <div class="profile-banner">
-            <div class="profile-pic-container mx-10">
+            <div class="profile-pic-container">
                 {% if user.userprofile.profile_image %}
                     <img src="{{ user.userprofile.profile_image.url }}" alt="Profile Image">
                 {% else %}
@@ -65,16 +123,16 @@
             </div>
         </div>
 
-        <div class="card-body profile-info me-auto">
+        <div class="card-body profile-info">
             <h3><strong>{{ user.first_name }} {{ user.last_name }}</strong></h3>
             <p class="username-handle">@{{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email|default:"None" }}</p>
 
             <div class="btn-group">
                 <a href="{% url 'update_profile' %}" class="btn btn-primary rounded-5">Edit Profile</a>
-                <a href="{% url 'password_change' %}" class="btn btn-warning mx-2 rounded-5">Change Password</a>
+                <a href="{% url 'password_change' %}" class="btn btn-warning rounded-5">Change Password</a>
                 <a href="{% url 'homepage' %}" class="btn btn-secondary rounded-5">Back</a>
-                <a href="{% url 'logout' %}" class="btn btn-danger mx-2 rounded-5">Logout</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger rounded-5">Logout</a>
             </div>
         </div>
     </div>

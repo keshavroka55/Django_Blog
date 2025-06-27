@@ -32,6 +32,7 @@
     .card-text {
         font-size: 16px;
         color: #6c757d;
+        margin-bottom: 15px;
     }
 
     .container.row.gap-3 {
@@ -40,19 +41,56 @@
         gap: 1.5rem;
         justify-content: flex-start;
     }
+
+    .author-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .author-info img {
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+        margin-right: 12px;
+    }
+
+    .author-text p {
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .author-text .username {
+        font-size: 14px;
+        color: #888;
+    }
+
+    .author-text .fullname {
+        font-weight: 600;
+        color: #333;
+    }
 </style>
 
 <div class="container row gap-3">
-
     {% for tweets in tweet %}
     <div class="card my-4 mx-2" style="width: 18rem;">
-        <img src="{{tweets.photo.url}}" class="card-img-top" alt="...">
+        <img src="{{ tweets.photo.url }}" class="card-img-top" alt="Tweet Photo">
         <div class="card-body">
-            <h5 class="card-title">{{tweets.user.username}}</h5>
-            <p class="card-text">{{tweets.text}}</p>
-            {% if tweets.user == user  %}
-            <a href="{% url 'tweet_edit' tweets.id %}" class="btn btn-primary">Edit</a>
-            <a href="{% url 'tweet_delete' tweets.id %}" class="btn btn-danger">Delete</a>     
+            <!-- Author Info -->
+            <div class="author-info">
+                <img src="{{ tweets.user.userprofile.profile_image.url }}" alt="Profile Image">
+                <div class="author-text">
+                    <p class="fullname">{{ tweets.user.first_name }} {{ tweets.user.last_name }}</p>
+                    <p class="username">@{{ tweets.user.username }}</p>
+                </div>
+            </div>
+
+            <p class="card-text">{{ tweets.text }}</p>
+
+            {% if tweets.user == user %}
+                <a href="{% url 'tweet_edit' tweets.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'tweet_delete' tweets.id %}" class="btn btn-danger">Delete</a>
             {% endif %}
         </div>
     </div>

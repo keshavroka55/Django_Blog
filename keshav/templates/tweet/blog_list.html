@@ -15,22 +15,34 @@
       margin-bottom: 30px;
     }
 
-    .btn-primary {
+    .btn-custom {
       display: inline-block;
-      background-color: #007bff;
-      color: #fff !important;
       padding: 10px 18px;
       border-radius: 6px;
-      text-decoration: none;
       font-weight: 600;
-      margin-bottom: 25px;
+      text-decoration: none;
+      border: none;
       transition: background-color 0.3s ease;
     }
 
-    .btn-primary:hover {
+    .btn-custom-primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .btn-custom-primary:hover {
       background-color: #0056b3;
-      text-decoration: none;
-      color: #fff !important;
+      color: #fff;
+    }
+
+    .btn-custom-secondary {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    .btn-custom-secondary:hover {
+      background-color: #5a6268;
+      color: #fff;
     }
 
     .blog-container {
@@ -66,12 +78,6 @@
       font-style: italic;
     }
 
-    .blog-author {
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #555;
-    }
-
     .blog-content {
       font-size: 18px;
       line-height: 1.6;
@@ -80,7 +86,7 @@
     }
 
     .blog-summary {
-      font-style: Bold;
+      font-weight: bold;
       color: #777;
       margin-bottom: 15px;
     }
@@ -88,64 +94,98 @@
     .blog-dates {
       font-size: 14px;
       color: #999;
+      margin-bottom: 15px;
     }
 
-    /* Responsive */
+    .author-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .author-info img {
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      margin-right: 12px;
+    }
+
+    .author-text {
+      line-height: 1.4;
+    }
+
+    .author-text .fullname {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .author-text .username {
+      font-size: 14px;
+      color: #888;
+    }
+
     @media (max-width: 600px) {
       .blog-card {
         padding: 20px 15px;
       }
+
       .blog-title {
         font-size: 22px;
       }
+
       .blog-content {
         font-size: 16px;
+      }
+
+      .btn-custom {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      .author-info {
+        flex-direction: row;
+        align-items: center;
       }
     }
   </style>
 
   <div class="blog-container">
     <h1>All Blog Posts</h1>
-    <a href="{% url 'blog_create' %}" class="btn btn-primary">Create New Blog</a>
-    <a href="{% url 'homepage' %}" class="btn btn-secondary rounded" style="margin-top: -18px;">Back</a>
-    
 
+    <!-- ✅ Consistent button structure -->
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+      <a href="{% url 'blog_create' %}" class="btn-custom btn-custom-primary">Create New Blog</a>
+      <a href="{% url 'homepage' %}" class="btn-custom btn-custom-secondary">Back</a>
+    </div>
 
-    {% for blog in blogs%}
+    {% for blog in blogs %}
       <article class="blog-card">
-        <div class="d-flex align-items-center">
-            <!-- Profile Image -->
-            <div class="me-3">
-                {% if user.userprofile.profile_image %}
-                    <img src="{{ user.userprofile.profile_image.url }}" class="rounded-circle" width="48" height="48" alt="Profile Image">
-                {% else %}
-                    {% comment %} <img src="{{ MEDIA_URL }}profile_images/default.jpg" class="rounded-circle" width="48" height="48" alt="Default Image"> {% endcomment %}
-                {% endif %}
-            </div>
-          
-            <!-- Name and Username -->
-            <div>
-              {% if blog.user == user %}
-              <strong>{{ user.first_name }} {{ user.last_name }}</strong><br>
-              <small class="text-muted">@{{ user.username }}</small>
-              {% endif %}
-            </div>
+        <!-- Author Info -->
+        <div class="author-info">
+          <img src="{{ blog.user.userprofile.profile_image.url }}" alt="Profile Image">
+          <div class="author-text">
+            <p class="fullname">{{ blog.user.first_name }} {{ blog.user.last_name }}</p>
+            <p class="username">@{{ blog.user.username }}</p>
+          </div>
         </div>
+
         <h2 class="blog-title">{{ blog.title }}</h2>
         <h4 class="blog-subtitle">{{ blog.subtitle }}</h4>
         <div class="blog-content">{{ blog.content }}</div>
         <p class="blog-summary">{{ blog.summary }}</p>
-        <p class="blog-dates">Created: {{ blog.created_at|date:"F j, Y, g:i a" }} | Updated: {{ blog.updated_at|date:"F j, Y, g:i a" }}</p>
-            {% comment %} the function of edit and delete the blogs. {% endcomment %}
-        {% if blog.user == user  %}
-        <a href="{% url 'blog_edit' blog.id %}" class="btn btn-primary">Edit</a>
-        <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>     
-        {% endif %}
+        <p class="blog-dates">
+          Created: {{ blog.created_at|date:"F j, Y, g:i a" }} |
+          Updated: {{ blog.updated_at|date:"F j, Y, g:i a" }}
+        </p>
 
+        {% if blog.user == user %}
+          <a href="{% url 'blog_edit' blog.id %}" class="btn btn-primary">Edit</a>
+          <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
       </article>
     {% empty %}
-      <p style="text-align:center; color:#888;">No blog posts yet.</p>
+      <p class="text-center text-muted">No blog posts yet.</p>
     {% endfor %}
-
   </div>
 {% endblock %}

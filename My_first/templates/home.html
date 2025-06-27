@@ -1,2 +1,46 @@
 {% extends "layout.html" %}
+{% load static %}
 
+{% block home %}
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">Welcome to BlogNest Website!</h1>
+<h2 class="text-center mt-2">Share your thoughts and memory.</h2>
+
+<!-- Carb Images Section -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/home.jpg' %}" class="img-fluid rounded shadow" alt="Rice">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/man.jpg' %}" class="img-fluid rounded shadow" alt="Bread">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/girl.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/blog.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/new.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/read.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/stroy.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/vlog.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/girl.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <img src="{% static 'images/home.jpg' %}" class="img-fluid rounded shadow" alt="Pasta">
+    </div>
+  </div>
+</div>
+{% endblock %}
