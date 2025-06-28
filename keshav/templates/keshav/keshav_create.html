@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .form-section {
+    max-width: 700px;
+    margin: auto;
+  }
+
+  .form-control,
+  .form-select {
+    border-radius: 8px;
+  }
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    border-radius: 25px;
+    padding: 8px 30px;
+  }
+</style>
+
+<div class="container mt-5 form-section">
+  <h2 class="text-center mb-4">Create New Blog</h2>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="id_photo" class="form-label">Blog Image</label>
+      {{ form.photo }}
+    </div>
+
+    <div class="mb-3">
+      <label for="id_title" class="form-label">Title</label>
+      {{ form.title }}
+    </div>
+
+    <div class="mb-3">
+      <label for="id_subtitle" class="form-label">Subtitle / Category</label>
+      {{ form.subtitle }}
+    </div>
+
+    <div class="mb-3">
+      <label for="id_category" class="form-label">Category</label>
+      {{ form.category }}
+    </div>
+
+    <div class="mb-3">
+      <label for="id_content" class="form-label">Content</label>
+      <small class="text-muted d-block mb-1">Use blank lines for paragraph breaks.</small>
+      {{ form.content }}
+    </div>
+
+    <div class="mb-3">
+      <label for="id_summary" class="form-label">Summary</label>
+      {{ form.summary }}
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+      <a href="{% url 'keshav_list' %}" class="btn btn-secondary">Cancel</a>
+      <button type="submit" class="btn btn-primary">Post Blog</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

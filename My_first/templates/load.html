@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block home %}
+<style>
+  /* Splash Screen Styling */
+  #splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeOut 1s ease-out 2s forwards;
+  }
+
+  #splash-screen img {
+    max-width: 300px;
+    animation: zoomIn 1s ease-in-out;
+  }
+
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  #main-content {
+    opacity: 0;
+    animation: showContent 0.5s ease-in-out 2s forwards;
+  }
+
+  @keyframes showContent {
+    to {
+      opacity: 1;
+    }
+  }
+
+  h1, h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+</style>
+
+<!-- Splash Screen -->
+<div id="splash-screen">
+  <img src="{% static 'images/logo1.png' %}" alt="Loading...">
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="main-content">
+  <h1 class="text-center mt-4 display-5 fw-bold text-primary">Welcome to BlogNest!</h1>
+  <h2 class="text-center mt-2 text-muted">Share your thoughts and memories with the world.</h2>
+
+  <style>
+    .blog-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .blog-card:hover {
+      transform: scale(1.015);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: 200px;
+      object-fit: cover; /* 💡 makes all images fit and look clean */
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .card-title {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .card-text {
+      font-size: 0.9rem;
+    }
+
+    .author-name {
+      font-weight: 500;
+    }
+
+    .btn-outline-primary {
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .action-buttons .btn {
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      margin-right: 5px;
+    }
+  </style>
+
+  <div class="container mt-5">
+    <div class="row">
+      {% for blog in blogs %}
+      <div class="col-md-4 mb-4">
+        <div class="card blog-card h-100 shadow-sm">
+          {% if blog.photo %}
+          <img src="{{ blog.photo.url }}" class="card-img-top" alt="Blog Photo">
+          {% else %}
+          <img src="{% static 'images/man.jpg' %}" class="card-img-top" alt="Default Blog Photo">
+          {% endif %}
+
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">{{ blog.title|truncatechars:50 }}</h5>
+              <p class="card-text text-muted">{{ blog.subtitle }}</p>
+            </div>
+
+            <!-- Creator Info -->
+            <div class="d-flex align-items-center mt-3 mb-2">
+              {% if blog.user.userprofile.profile_image %}
+                <img src="{{ blog.user.userprofile.profile_image.url }}" alt="Profile" class="profile-img me-2">
+              {% else %}
+                <img src="{% static 'images/default_profile.png' %}" alt="Profile" class="profile-img me-2">
+              {% endif %}
+              <span class="author-name">{{ blog.user.get_full_name|default:blog.user.username }}</span>
+            </div>
+
+            <!-- Edit/Delete Buttons -->
+            <div class="action-buttons mt-2">
+              {% if blog.user == user %}
+                <a href="{% url 'keshav_delete' blog.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'keshav_edit' blog.id %}" class="btn btn-primary">Edit</a>
+              {% endif %}
+            </div>
+
+            <a href="{% url 'keshav_detail' blog.pk %}" class="btn btn-outline-primary w-100">View Full</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center mt-5 text-muted">No blogs found. Be the first to share your story!</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

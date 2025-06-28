@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Message,Blog
-from .forms import Tweetfromtext,Tweetform, SignUpForm, BlogForm
+from .models import Message,Blog,Keshav
+from .forms import Tweetfromtext,Tweetform, SignUpForm, BlogForm,KeshavForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -18,8 +18,6 @@ from .models import UserProfile
 def tweet_list(request):
     tweets = Message.objects.all().order_by('-created_at')
     return render (request,'tweet/tweet_list.html',{'tweet': tweets})
-
-
 
 
 # this is the user of decorators to guest user.
@@ -54,6 +52,7 @@ def tweet_edit(request,tweet_id):
     return render (request,'tweet/tweet_edit.html',{'tweet_form': tweet_form})
 @login_required
 def tweet_delete(request, tweet_id):
+    print("Vlog Delete called.")
     tweet = get_object_or_404(Message,pk=tweet_id, user = request.user)
     if request.method == 'POST':
         tweet.delete()
@@ -73,9 +72,7 @@ def blog_edit(request,blog_id):
             blog.save()
             return redirect('blog_list')
         else:
-            print(f"keshav. {blog_form.errors}")
-
-        
+            print(f"keshav. {blog_form.errors}")        
     else:
         blog_form = BlogForm(instance=blog) # this is resposible for show the previous text form model.
     return render (request,'tweet/blog_edit.html',{'blog_form': blog_form})
@@ -128,7 +125,6 @@ def profile_view(request):
 # password change 
 @login_required
 def custom_change_password(request):
-    print("Keshav")
     if request.method == 'POST':
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
@@ -176,5 +172,75 @@ def profile_edit(request):
   
     })
 
-# blog edit and delete features.
+# Keshav one...
+# new blog category for making more good.
+# List all blogs
+def keshav_list(request):
+    blogs = Keshav.objects.all().order_by('-created_at')
+    return render(request, 'keshav/keshav_list.html', {'blogs': blogs})
+
+# View a single blog
+def keshav_detail(request, pk):
+    blog = get_object_or_404(Keshav, pk=pk)
+    return render(request, 'keshav/keshav_detail.html', {'blog': blog})
+
+# Create new blog
+@login_required
+def keshav_create(request):
+    if request.method == 'POST':
+        form = KeshavForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_blog = form.save(commit=False)
+            new_blog.user = request.user
+            new_blog.save()
+            messages.success(request, "Blog created successfully!")
+            return redirect('keshav_list')
+    else:
+        form = KeshavForm()
+    return render(request, 'new/keshav_create.html', {'form': form})
+
+# Update blog
+@login_required
+def keshav_update(request, pk):
+    print("Keshav Blog is update")
+    blog = get_object_or_404(Keshav, pk=pk)
+    if request.user != blog.user:
+        return redirect('keshav_list')
+    
+    if request.method == 'POST':
+        form = KeshavForm(request.POST, request.FILES, instance=blog)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Blog updated successfully!")
+            return redirect('keshav_detail', pk=pk)
+    else:
+        form = KeshavForm(instance=blog)
+    return render(request, 'keshav/keshav_form.html', {'form': form})
+
+@login_required    
+def keshav_edit(request,pk):
+    print("BLOG EDIT CALLED")
+    blog = get_object_or_404(Keshav,pk=pk, user= request.user)
+    if request.method == 'POST':
+        form = KeshavForm(request.POST, request.FILES,instance=blog)
+        if form.is_valid():
+            blog = form.save(commit=False)
+            blog.user = request.user
+            blog.save()
+            return redirect('keshav_list')
+        else:
+            print(f"keshav. {form.errors}")        
+    else:
+        form = BlogForm(instance=blog) # this is resposible for show the previous text form model.
+    return render (request,'new/keshav_edit.html',{'form': form})
+
+# Delete blog
+@login_required
+def keshav_delete(request, pk):
+    print("Keshav Blog is delete")
+    blog = get_object_or_404(Keshav, pk=pk)
+    if request.user == blog.user:
+        blog.delete()
+        messages.success(request, "Blog deleted successfully.")
+    return redirect('keshav_list')
 

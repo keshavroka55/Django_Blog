@@ -21,17 +21,12 @@ from django.conf.urls.static import static
 from . import views
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='homepage'),
+    path('', views.load, name='load'),
     path('profile/', views.login_sucess, name = 'login_sucess'),
-
-
-
-
-
-
-
+    path('homepage/', views.keshav_list, name = 'homepage'),
 
     # IMPORTANT ONE
     # while creating a sub file of app (keshav...)

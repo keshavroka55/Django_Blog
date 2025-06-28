@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 
-{% block home %}
-{% endblock %}
+{% block home %}{% endblock %}
 
 {% block content %}
 <style>
     .form {
-        max-width: 500px;
+        max-width: 600px;
         margin: 30px auto;
         padding: 25px;
         background-color: #f8f9fa;
@@ -24,8 +23,7 @@
     }
 
     .form input[type="text"],
-    .form textarea,
-    .form input[type="file"] {
+    .form textarea {
         width: 100%;
         padding: 10px;
         border: 1px solid #ced4da;
@@ -34,41 +32,41 @@
         margin-top: 5px;
     }
 
-    .btn-warning {
+    .btn {
         margin-top: 18px;
     }
 
+    .btn + .btn {
+        margin-left: 10px;
+    }
+
     a {
-        display: inline-block;
-        margin-top: 20px;
         text-decoration: none;
-        color: #0d6efd;
-        font-weight: 500;
     }
 
     a:hover {
         text-decoration: underline;
     }
-    .tweet-heading{
-        font-size: 30px;
 
+    .blog-heading {
+        font-size: 30px;
+        text-align: center;
+        margin-bottom: 20px;
     }
 </style>
 
-{% if blog_form.instance.pk %}
-<h1 class="tweet-heading mx-3 my-3">Tweet Edit</h1>
-{% else %} 
-<h1 class="tweet-heading mx-3 my-3">Create Tweet!</h1>
+{% if form.instance.pk %}
+    <h1 class="blog-heading">Edit Blog</h1>
+    <form method="post" class="form" action="{% url 'keshav_edit' form.instance.pk %}">
+{% else %}
+    <h1 class="blog-heading">Create Blog</h1>
+    <form method="post" class="form" action="{% url 'keshav_create' %}">
 {% endif %}
 
-<form method="post" enctype="multipart/form-data" class="form">
     {% csrf_token %}
-    {{ tweet_form.as_p }}
-    <button class="btn btn-warning" type="submit">Submit</button>
-    <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Back</a>
+    {{ form.as_p }}
 
+    <button type="submit" class="btn btn-warning">Submit</button>
+    <a href="{% url 'keshav_list' %}" class="btn btn-primary">Back to Blog List</a>
 </form>
-
-
-
 {% endblock %}

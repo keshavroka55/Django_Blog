@@ -6,7 +6,7 @@
 {% block content %}
 <style>
     .form {
-        max-width: 500px;
+        max-width: 600px;
         margin: 30px auto;
         padding: 25px;
         background-color: #f8f9fa;
@@ -24,8 +24,7 @@
     }
 
     .form input[type="text"],
-    .form textarea,
-    .form input[type="file"] {
+    .form textarea {
         width: 100%;
         padding: 10px;
         border: 1px solid #ced4da;
@@ -49,26 +48,26 @@
     a:hover {
         text-decoration: underline;
     }
-    .tweet-heading{
-        font-size: 30px;
 
+    .vlog-heading {
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+        color: #212529;
     }
 </style>
 
-{% if blog_form.instance.pk %}
-<h1 class="tweet-heading mx-3 my-3">Tweet Edit</h1>
-{% else %} 
-<h1 class="tweet-heading mx-3 my-3">Create Tweet!</h1>
+{% if form.instance.pk %}
+<h1 class="vlog-heading">Edit Vlog</h1>
+{% else %}
+<h1 class="vlog-heading">Create Vlog</h1>
 {% endif %}
 
 <form method="post" enctype="multipart/form-data" class="form">
     {% csrf_token %}
-    {{ tweet_form.as_p }}
+    {{ form.as_p }}
     <button class="btn btn-warning" type="submit">Submit</button>
-    <a href="{%url 'tweet_list'%}" class="btn btn-primary mx-2">Back</a>
+    <a href="{% url 'homepage' %}" class="btn btn-primary mx-2">Back</a>
 
 </form>
-
-
-
 {% endblock %}

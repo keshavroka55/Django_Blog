@@ -39,6 +39,36 @@ class UserProfile(models.Model):
         return self.user.username
     
 
+class Keshav(models.Model):
+    class BlogCategory(models.TextChoices):
+        PERSONAL = 'PERSONAL', 'Personal'
+        TRAVEL = 'TRAVEL', 'Travel'
+        FOOD = 'FOOD', 'Food'
+        STORYTIME = 'STORYTIME', 'Storytime'
+        LEARNING = 'LEARNING', 'Learning'
+        PROJECT = 'PROJECT', 'Project'
+        CHALLENGE = 'CHALLENGE', 'Challenge'
+        OTHER = 'OTHER', 'Other'
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
+    photo = models.ImageField(upload_to='blogphotos/', blank=True, null=True)
+    category = models.TextChoices
+    title = models.CharField(max_length=50)
+    subtitle = models.CharField(max_length=300)
+    content = models.TextField()
+    summary = models.TextField(max_length=500)
+
+    category = models.CharField(
+        max_length=20,
+        choices=BlogCategory.choices,
+        default=BlogCategory.OTHER
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.title[:50]}"
+    
+
 
 
 

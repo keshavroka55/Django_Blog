@@ -1,23 +1,121 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+
+<style>
+  body {
+    background: #f7f9fc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #198754;
+  }
+
+  .card-text {
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .btn-outline-primary,
+  .btn-outline-danger {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white;
+  }
+
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+  }
+
+  .img-fluid {
+    max-height: 300px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  }
+
+  .container {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 576px) {
+    .card-title {
+      font-size: 1.5rem;
+    }
+
+    .card-text {
+      font-size: 1rem;
+    }
+
+    .btn {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+</style>
+
 <div class="container mt-5">
-    <div class="card shadow-lg p-4 rounded" style="max-width: 500px; margin: auto;">
-        <div class="card-body text-center">
-            <h2 class="card-title text-success mb-3">Login Successful</h2>
-            <p class="card-text fs-5">Welcome back, <strong>{{ user.username }}</strong>!</p>
-            <p class="text-muted">You have successfully logged in.</p>
-            
-            <div class="mt-4">
-                <a href="{% url 'homepage' %}" id="redirect-link" class="btn btn-outline-primary mx-2">Go to Home Page</a>
-                <script>
-                    setTimeout(function() {
-                      window.location.href = document.getElementById('redirect-link').href;
-                    }, 2000); // 2000 milliseconds = 2 seconds
-                </script>
-                <a href="{% url 'logout' %}" class="btn btn-outline-danger mx-2">Logout</a>
-            </div>
-        </div>
+  <div class="card p-4 rounded mx-auto" style="max-width: 600px;">
+    
+    <!-- Image at the Top -->
+    <div class="text-center">
+      <img src="{% static 'images/logo1.png' %}" 
+           class="img-fluid mb-4" 
+           alt="Login Image">
     </div>
+
+    <!-- Success Message Below -->
+    <div class="card-body text-center">
+      <h2 class="card-title mb-3">Login Successful</h2>
+      <p class="card-text fs-5">Welcome back, <strong>{{ user.username }}</strong>!</p>
+      <p class="text-muted">You have successfully logged in.</p>
+
+      <div class="mt-4 d-flex justify-content-center flex-wrap">
+        <a href="{% url 'homepage' %}" id="redirect-link" class="btn btn-outline-primary mx-2">Go to Home Page</a>
+        <script>
+          setTimeout(function () {
+            window.location.href = document.getElementById('redirect-link').href;
+          }, 2000); // Auto-redirect in 10 seconds
+        </script>
+        <a href="{% url 'logout' %}" class="btn btn-outline-danger mx-2">Logout</a>
+      </div>
+    </div>
+    
+  </div>
 </div>
+
 {% endblock %}

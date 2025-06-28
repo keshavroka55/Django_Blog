@@ -19,6 +19,12 @@ urlpatterns = [
     path('userprofile/',views.profile_view, name='user_profile'),
     path('userprofile/update',views.profile_edit, name='update_profile'),
     # working on it.... showing the default django templates.
+
+    path('keshav', views.keshav_list, name='keshav_list'),
+    path('keshav/<int:pk>/', views.keshav_detail, name='keshav_detail'),
+    path('keshav/new/', views.keshav_create, name='keshav_create'),
+    path('keshav/<int:pk>/edit/', views.keshav_edit, name='keshav_edit'),
+    path('keshav/<int:pk>/delete/', views.keshav_delete, name='keshav_delete'),
  
 
 ]

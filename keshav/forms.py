@@ -1,5 +1,5 @@
 from django import forms
-from .models import Message,Blog
+from .models import Message,Blog,Keshav
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
@@ -38,3 +38,9 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['profile_image']
+
+
+class KeshavForm(forms.ModelForm):
+    class Meta:
+        model = Keshav
+        fields = ['title','photo','subtitle','category','content','summary']
