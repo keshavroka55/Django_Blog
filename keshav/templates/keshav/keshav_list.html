@@ -87,6 +87,9 @@
             {% endif %}
             <span>{{ blog.user.get_full_name|default:blog.user.username }}</span>
           </div>
+          <div>
+              <h6>{{blog.category}} Category Blog</h6>
+          </div>
 
           <!-- Edit/Delete if creator -->
           <div class="action-buttons mt-2">

@@ -62,7 +62,6 @@ def tweet_delete(request, tweet_id):
 
 @login_required    
 def blog_edit(request,blog_id):
-    print("BLOG EDIT CALLED")
     blog = get_object_or_404(Blog,pk=blog_id, user= request.user)
     if request.method == 'POST':
         blog_form = BlogForm(request.POST, request.FILES,instance=blog)
@@ -239,9 +238,8 @@ def keshav_edit(request,pk):
 def keshav_delete(request, pk):
     print("Keshav Blog is delete")
     blog = get_object_or_404(Keshav, pk=pk)
-    if request.user == blog.user:
+    if request.method == 'POST':
         blog.delete()
-        messages.success(request, "Blog deleted successfully.")
+        return redirect('keshav_list')
     return render(request,'new/keshav_delete.html',{'blog':blog})
-
 
