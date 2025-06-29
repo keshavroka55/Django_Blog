@@ -242,5 +242,6 @@ def keshav_delete(request, pk):
     if request.user == blog.user:
         blog.delete()
         messages.success(request, "Blog deleted successfully.")
-    return redirect('keshav_list')
+    return render(request,'new/keshav_delete.html',{'blog':blog})
+
 
