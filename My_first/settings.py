@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-60^q17i$!p9!&-0t_+-fk%^*1&&(*t$$$^wkrl@y1+h*o#9789
 DEBUG = True
 
 # Allowed hosts
-ALLOWED_HOSTS = ['django-blog-z443.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -98,12 +98,15 @@ WSGI_APPLICATION = 'My_first.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3', 
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 
 
@@ -166,11 +169,9 @@ LOGOUT_REDIRECT_URL = '/keshav/'
 LOGIN_REDIRECT_URL = '/profile/'
 
 
-# while deploping in the vercel...
-
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 
 
 
