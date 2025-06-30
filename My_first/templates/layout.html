@@ -76,9 +76,12 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
+      
+
         <!-- Right Side: Search and Auth Links -->
-        <form class="d-flex me-3 my-2 mx-5" role="search" method="get">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <form class="d-flex me-3 my-2 mx-5" role="search" method="get" action="{%url 'homepage'%}">
+          {% comment %} <input type="text" name="q"/> {% endcomment %}
+          <input class="form-control me-2" type="text" name="q" placeholder="Search" aria-label="Search" />
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
         <!-- Left Side Navigation -->
