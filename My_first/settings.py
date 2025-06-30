@@ -148,7 +148,11 @@ USE_TZ = True
 # the path of static files like: css current....
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join (BASE_DIR,'My_first','static')]
+STATICFILES_DIRS = [
+    os.path.join (BASE_DIR,'My_first','static'),
+    os.path.join (BASE_DIR,'My_first','media'),
+    ]
+
 
 # This is used while creating the models
 

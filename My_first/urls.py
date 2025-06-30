@@ -36,11 +36,11 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
 
-
-
 # this is the one which is need to determine the path of reload....
     path("__reload__/", include ("django_browser_reload.urls")),
 
 
 
-] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
