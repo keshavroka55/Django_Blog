@@ -16,9 +16,10 @@ urlpatterns = [
     path('accounts/password-change/',views.custom_change_password, name='password_change'),
     path('accounts/password-change/done/',views.password_change_done , name='password_change_done'),
     path('accounts/', include('django.contrib.auth.urls')),
+
+    # working on it.... showing the default django templates.
     path('userprofile/',views.profile_view, name='user_profile'),
     path('userprofile/update',views.profile_edit, name='update_profile'),
-    # working on it.... showing the default django templates.
 
     path('keshav', views.keshav_list, name='keshav_list'),
     path('keshav/<int:pk>/', views.keshav_detail, name='keshav_detail'),

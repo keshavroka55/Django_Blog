@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
 {% load static %}
 
 {% block content %}
@@ -58,9 +58,6 @@
 
 <div class="container mt-4">
   <h2 class="text-center mb-4">All Blogs</h2>
-  <div class="text-start">
-    <a href="{% url 'homepage' %}" class="btn btn-danger btn-back">← Back</a>
-  </div>
 
   <div class="row">
     {% for blog in blogs %}

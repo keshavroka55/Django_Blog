@@ -11,13 +11,30 @@ def login_sucess(request):
     return render(request,'login_sucess.html')
 
 def keshav_list(request):
-    # q = request.GET.get('q') if request.GET.get('p') != None else ''
-    # blogs = Keshav.objects.filter(category__icontains=q)
-
     blogs = Keshav.objects.all().order_by('-created_at')
-
-    # user = Keshav.objects.all()
     context = {'blogs': blogs}
     return render(request, 'keshav_list.html', context)
+
+# for search features.
+def keshav_list(request):
+    category = request.GET.get('category')  # ?category=TRAVEL
+    username = request.GET.get('username')  # ?username=john
+
+    blogs = Keshav.objects.all()
+
+    # Filter by category if provided
+    if category:
+        blogs = blogs.filter(category=category.upper())  # Category is saved in uppercase
+
+    # Filter by username if provided
+    if username:
+        blogs = blogs.filter(user__username=username)
+
+    context = {
+        'blogs': blogs,
+    }
+    return render(request, 'keshav_list.html', context)
+
+
 
 

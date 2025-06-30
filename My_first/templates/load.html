@@ -120,6 +120,12 @@
       margin-right: 5px;
     }
   </style>
+  
+  <div class="container mt-5">
+  <div>
+    <h3>Latest Blogs</h3>
+    <hr>
+  </div>
 
   <div class="container mt-5">
     <div class="row">
@@ -148,13 +154,9 @@
               <span class="author-name">{{ blog.user.get_full_name|default:blog.user.username }}</span>
             </div>
 
-            <!-- Edit/Delete Buttons -->
-            <div class="action-buttons mt-2">
-              {% if blog.user == user %}
-                <a href="{% url 'keshav_delete' blog.id %}" class="btn btn-danger">Delete</a>
-                <a href="{% url 'keshav_edit' blog.id %}" class="btn btn-primary">Edit</a>
-              {% endif %}
-            </div>
+            <div>
+              <h6>{{blog.category}} Category Blog</h6>
+            </div> 
 
             <a href="{% url 'keshav_detail' blog.id %}" class="btn btn-outline-primary w-100">View Full</a>
           </div>

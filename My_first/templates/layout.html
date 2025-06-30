@@ -59,6 +59,21 @@
         width: 100%;
       }
     }
+    select[name="category"] {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 6px 10px;
+    margin-left: 10px;
+    font-size: 0.95rem;
+    background-color: #f8f9fa;
+    transition: border-color 0.2s;
+  }
+
+  select[name="category"]:hover,
+  select[name="category"]:focus {
+    border-color: #0d6efd;
+    outline: none;
+  }
   </style>
 </head>
 
@@ -80,10 +95,21 @@
 
         <!-- Right Side: Search and Auth Links -->
         <form class="d-flex me-3 my-2 mx-5" role="search" method="get" action="{%url 'homepage'%}">
-          {% comment %} <input type="text" name="q"/> {% endcomment %}
-          <input class="form-control me-2" type="text" name="q" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-success" type="submit">Search</button>
+      <input type="text" name="username" class="form-control me-2" placeholder="Search by username" value="{{ request.GET.username }}">
+            <select name="category" class="me-4">
+              <option value="">All Categories</option>
+              <option value="PERSONAL">Personal</option>
+              <option value="TRAVEL">Travel</option>
+              <option value="FOOD">Food</option>
+              <option value="STORYTIME">Storytime</option>
+              <option value="LEARNING">Learning</option>
+              <option value="PROJECT">Project</option>
+              <option value="CHALLENGE">Challenge</option>
+              <option value="OTHER">Other</option>
+            </select>
+          <button class="btn btn-outline-success " type="submit">Search</button>
         </form>
+
         <!-- Left Side Navigation -->
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
            </li>

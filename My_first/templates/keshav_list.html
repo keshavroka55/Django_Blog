@@ -61,15 +61,9 @@
 
 
 <div class="container mt-5">
-  {% comment %} this is for the search function  {% endcomment %}
   <div>
     <h3>Latest Blogs</h3>
     <hr>
-    {% comment %} {% for user in users %}
-      <div>
-        <a href="{% url 'homepage'%}?q={{user.category}}">{{user.category}}</a>
-      </div>     
-    {% endfor %} {% endcomment %}
   </div>
   <div class="row">
     {% for blog in blogs %}

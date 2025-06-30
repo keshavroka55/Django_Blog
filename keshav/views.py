@@ -171,12 +171,12 @@ def profile_edit(request):
   
     })
 
-# Keshav one...
-# new blog category for making more good.
-# List all blogs
+
+# keshav blog one..
 def keshav_list(request):
     blogs = Keshav.objects.all().order_by('-created_at')
     return render(request, 'keshav/keshav_list.html', {'blogs': blogs})
+
 
 # View a single blog
 def keshav_detail(request, pk):
