@@ -94,7 +94,7 @@
       
 
         <!-- Right Side: Search and Auth Links -->
-        <form class="d-flex me-3 my-2 mx-5" role="search" method="get" action="{%url 'homepage'%}">
+        <form class="d-flex me-3 my-2 mx-1" role="search" method="get" action="{%url 'homepage'%}">
       <input type="text" name="username" class="form-control me-2" placeholder="Search by username" value="{{ request.GET.username }}">
             <select name="category" class="me-4">
               <option value="">All Categories</option>
@@ -130,6 +130,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'keshav_list' %}">Read Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'chat_select' %}">Send Message</a>
           </li>
         </ul>
 

@@ -26,6 +26,12 @@ urlpatterns = [
     path('keshav/new/', views.keshav_create, name='keshav_create'),
     path('keshav/<int:pk>/edit/', views.keshav_edit, name='keshav_edit'),
     path('keshav/<int:pk>/delete/', views.keshav_delete, name='keshav_delete'),
+
+    # chat features. 
+    path('chat/', views.select_user_to_chat,name='chat_select'),
+    path('chat/<int:user_id>/', views.send_message,name='send'),
+
+
  
 
 ]

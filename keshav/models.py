@@ -68,7 +68,15 @@ class Keshav(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.title[:50]}"
     
+class Chat(models.Model):
+    sender = models.ForeignKey(User, related_name=('send_messages'), on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name=('received_messages'), on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default= False)
 
+    def __str__(self):
+        return f"From {self.sender} to {self.receiver}: {self.content[:20]}"
 
 
 

@@ -1,14 +1,15 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Message,Blog,Keshav
-from .forms import Tweetfromtext,Tweetform, SignUpForm, BlogForm,KeshavForm
+from .models import Message,Blog,Keshav,Chat
+from .forms import Tweetfromtext,Tweetform, SignUpForm, BlogForm,KeshavForm,ChartForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
 from .models import UserProfile
+from django.contrib.auth.models import User
 
 
 
@@ -38,7 +39,6 @@ def tweet_create(request):
 
 @login_required    
 def tweet_edit(request,tweet_id):
-    print("TWEET EDIT CALLED")
     tweet = get_object_or_404(Message,pk=tweet_id, user= request.user)
     if request.method == 'POST':
         tweet_form = Tweetfromtext(request.POST, request.FILES,instance=tweet)
@@ -201,7 +201,6 @@ def keshav_create(request):
 # Update blog
 @login_required
 def keshav_update(request, pk):
-    print("Keshav Blog is update")
     blog = get_object_or_404(Keshav, pk=pk)
     if request.user != blog.user:
         return redirect('keshav_list')
@@ -243,3 +242,31 @@ def keshav_delete(request, pk):
         return redirect('keshav_list')
     return render(request,'new/keshav_delete.html',{'blog':blog})
 
+# this chat features
+
+@login_required
+def send_message(request, user_id):
+    print("Keshav Chat Send Messages..")
+    receiver = get_object_or_404(User,id = user_id) # error: missing one positional argument.
+    
+    messages = Chat.objects.filter(
+        sender__in= [request.user,receiver],
+        receiver__in= [request.user,receiver]
+    ).order_by('timestamp')
+    if request.method == 'POST':
+        form = ChartForm(request.POST)
+        if form.is_valid():
+            msg = form.save(commit=False) # create a message object but not save in the database.
+            msg.sender = request.user
+            msg.receiver = receiver 
+            msg.save()
+            return redirect('send',user_id=receiver.id)
+    else:
+        form = ChartForm()
+    users = User.objects.exclude(id=request.user.id)
+    return render (request, 'chat/send_message.html',{'users':users,'form': form,'messages':messages,'receiver':receiver,'user':request.user})
+
+@login_required
+def select_user_to_chat(request):
+    users = User.objects.exclude(id=request.user.id)
+    return render(request, 'chat/select_user.html', {'users': users})

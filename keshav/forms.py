@@ -1,5 +1,5 @@
 from django import forms
-from .models import Message,Blog,Keshav
+from .models import Message,Blog,Keshav,Chat
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
@@ -44,3 +44,11 @@ class KeshavForm(forms.ModelForm):
     class Meta:
         model = Keshav
         fields = ['title','photo','subtitle','category','content','summary']
+
+class ChartForm(forms.ModelForm):
+    class Meta:
+        model = Chat
+        fields = ['content']
+        widgets = {
+            'content': forms.TextInput(attrs={'class': 'form-control','placeholder':'Type Your Messages....'})
+        }
