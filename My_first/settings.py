@@ -55,7 +55,7 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # what is domain mapping (for production level of knowledge you need it keshav)
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # this is used while deploying the project
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,7 +63,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware', # auto-reload the tailwind
+
 ]
 
 ROOT_URLCONF = 'My_first.urls'
@@ -76,9 +77,8 @@ TEMPLATES = [
         'DIRS': [
         BASE_DIR / "templates",
         BASE_DIR / "My_first" / "templates",
- 
-
     ],
+
 
         'APP_DIRS': True,
         'OPTIONS': {
@@ -156,8 +156,14 @@ STATICFILES_DIRS = [
 
 # This is used while creating the models
 
-MEDIA_URL = '/media/'   
-MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'   # where uploaded files are accessed by browser.
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') # where the uploaded files are saved in disk.
+
+# this is used in production.
+# python manage.py collectstatic
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -173,7 +179,6 @@ LOGOUT_REDIRECT_URL = '/keshav/'
 LOGIN_REDIRECT_URL = '/profile/'
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 
