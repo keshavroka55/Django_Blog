@@ -1,0 +1,46 @@
+/* styles.css */
+
+/* Container styling for the password change done page */
+.container.mt-5 {
+  max-width: 600px; /* Restrict container width for better readability */
+  margin: 0 auto; /* Center the container */
+  padding: 2rem; /* Add padding for spacing */
+  background-color: #ffffff; /* White background for clean look */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center text content */
+  min-height: 50vh; /* Ensure container takes up some vertical space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Heading styling */
+.container.mt-5 h2 {
+  font-size: 1.8rem; /* Reasonable heading size */
+  font-weight: 600; /* Semi-bold for emphasis */
+  color: #1a3c34; /* Dark teal for professional tone */
+  margin-bottom: 1.5rem; /* Space below heading */
+  line-height: 1.2; /* Improved readability */
+}
+
+/* Paragraph styling */
+.container.mt-5 p {
+  font-size: 1rem; /* Standard font size */
+  color: #4a4a4a; /* Neutral dark gray for text */
+  margin-bottom: 2rem; /* Space below paragraph */
+}
+
+/* Link styling */
+.container.mt-5 a {
+  display: inline-block; /* Allow padding and width control */
+  padding: 0.75rem 1.5rem; /* Comfortable button size */
+  background-color: #007bff; /* Bootstrap primary blue for consistency */
+  color: #ffffff; /* White text for contrast */
+  text-decoration: none; /* Remove underline */
+  border-radius: 5px; /* Rounded corners for button */
+  font-weight: 500; /* Medium weight for clarity */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect

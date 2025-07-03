@@ -1,5 +1,7 @@
 from django.urls import path, include
 from . import views
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import PasswordChangeView
 
 
 urlpatterns = [
@@ -13,9 +15,8 @@ urlpatterns = [
     path('bloglist/',views.blog_list, name='blog_list'),
     path('blog/<int:blog_id>/edit/', views.blog_edit, name='blog_edit'),
     path('blog/<int:blog_id>/delete/', views.blog_delete, name='blog_delete'),
-    path('accounts/password-change/',views.custom_change_password, name='password_change'),
-    path('accounts/password-change/done/',views.password_change_done , name='password_change_done'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('password/',views.custom_change_password, name='keshav'),
+    path('done/',views.done, name='done'),
 
     # working on it.... showing the default django templates.
     path('userprofile/',views.profile_view, name='user_profile'),
@@ -32,6 +33,8 @@ urlpatterns = [
     path('chat/<int:user_id>/', views.send_message,name='send'),
 
 
- 
+    path('accounts/', include('django.contrib.auth.urls')),
+
+
 
 ]

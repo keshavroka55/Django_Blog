@@ -20,7 +20,6 @@ def tweet_list(request):
     tweets = Message.objects.all().order_by('-created_at')
     return render (request,'tweet/tweet_list.html',{'tweet': tweets})
 
-
 # this is the user of decorators to guest user.
 @login_required
 def tweet_create(request):
@@ -130,19 +129,17 @@ def custom_change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Keep user logged in
             messages.success(request, 'Your password was changed successfully!')
-            return redirect('password_change_done')  # your custom success page
+            return redirect('change')  # your custom success page
     else:
         form = PasswordChangeForm(user=request.user)
 
-    return render(request, 'registration/password_change.html', {'form': form})
-
-# password change conformation 
-@login_required
-def password_change_done(request):
-    return render(request, 'registration/password_change_done.html')
+    return render(request, 'registration/keshav.html', {'form': form})
 
 
 # this is for the user profilephoto and profile update
+@login_required
+def done(request):
+    return render(request,'registration/done.html')
 
 @login_required
 def profile_view(request):

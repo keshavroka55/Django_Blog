@@ -1,4 +1,5 @@
 from django import forms
+from django.db import models
 from .models import Message,Blog,Keshav,Chat
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -16,7 +17,7 @@ class Tweetfromtext(forms.ModelForm):
         model = Message
         fields = ['text']
 
-
+# this is required.
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, help_text='Required. Enter a valid email Address.')
 

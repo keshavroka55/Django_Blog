@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+/* Container styling for the password change done page */
+.container.mt-5 {
+  max-width: 600px; /* Restrict container width for better readability */
+  margin: 0 auto; /* Center the container */
+  padding: 2rem; /* Add padding for spacing */
+  background-color: #ffffff; /* White background for clean look */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center text content */
+  min-height: 50vh; /* Ensure container takes up some vertical space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Heading styling */
+.container.mt-5 h2 {
+  font-size: 1.8rem; /* Reasonable heading size */
+  font-weight: 600; /* Semi-bold for emphasis */
+  color: #1a3c34; /* Dark teal for professional tone */
+  margin-bottom: 1.5rem; /* Space below heading */
+  line-height: 1.2; /* Improved readability */
+}
+
+/* Paragraph styling */
+.container.mt-5 p {
+  font-size: 1rem; /* Standard font size */
+  color: #4a4a4a; /* Neutral dark gray for text */
+  margin-bottom: 2rem; /* Space below paragraph */
+}
+
+/* Link/button styling */
+.container.mt-5 a.btn.btn-primary {
+  display: inline-block; /* Allow padding and width control */
+  padding: 0.75rem 1.5rem; /* Comfortable button size */
+  background-color: #007bff; /* Bootstrap primary blue for consistency */
+  color: #ffffff; /* White text for contrast */
+  text-decoration: none; /* Remove underline */
+  border-radius: 5px; /* Rounded corners for button */
+  font-weight: 500; /* Medium weight for clarity */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+/* Hover effect for link */
+.container.mt-5 a.btn.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Focus and active states for accessibility */
+.container.mt-5 a.btn.btn-primary:focus {
+  outline: 2px solid #0056b3; /* Visible focus outline */
+  outline-offset: 2px; /* Slight offset for clarity */
+}
+
+.container.mt-5 a.btn.btn-primary:active {
+  transform: translateY(0); /* Reset lift on click */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .container.mt-5 {
+    padding: 1.5rem; /* Reduce padding on smaller screens */
+  }
+
+  .container.mt-5 h2 {
+    font-size: 1.5rem; /* Smaller heading on mobile */
+  }
+
+  .container.mt-5 a.btn.btn-primary {
+    padding: 0.6rem 1.2rem; /* Smaller button on mobile */
+    font-size: 0.9rem; /* Slightly smaller text */
+  }
+}
+
+/* High contrast mode for accessibility */
+@media (prefers-contrast: high) {
+  .container.mt-5 {
+    background-color: #ffffff; /* Ensure white background */
+    border: 1px solid #000000; /* Clear border */
+  }
+
+  .container.mt-5 h2 {
+    color: #000000; /* Black for maximum contrast */
+  }
+
+  .container.mt-5 p {
+    color: #000000; /* Black for maximum contrast */
+  }
+
+  .container.mt-5 a.btn.btn-primary {
+    background-color: #0000ff; /* High-contrast blue */
+    color: #ffffff; /* White text */
+  }
+}
+</style>
+
+<section class="container mt-5" aria-labelledby="password-changed-heading">
+    <h2 id="password-changed-heading">Password Changed Successfully!</h2>
+    <p>Your password has been updated securely.</p>
+    <p><a href="{% url 'homepage' %}" class="btn btn-primary" role="button" aria-label="Return to your profile">Return to Profile</a></p>
+</section>
+{% endblock %}

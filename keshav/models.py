@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxLengthValidator
 
 
-
+# this is the tweet one .
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(validators=[MaxLengthValidator(240)])
@@ -15,7 +15,7 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.text[:10]}"
-
+# this is the first one of blog with some limitations.
 class Blog(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE)
     title = models.CharField(max_length=50)
@@ -38,7 +38,7 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
     
-
+# improve version of blog 
 class Keshav(models.Model):
     class BlogCategory(models.TextChoices):
         PERSONAL = 'PERSONAL', 'Personal'
@@ -68,6 +68,7 @@ class Keshav(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.title[:50]}"
     
+# the messages one.
 class Chat(models.Model):
     sender = models.ForeignKey(User, related_name=('send_messages'), on_delete=models.CASCADE)
     receiver = models.ForeignKey(User, related_name=('received_messages'), on_delete=models.CASCADE)
