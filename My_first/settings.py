@@ -55,7 +55,6 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # what is domain mapping (for production level of knowledge you need it keshav)
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware', # this is used while deploying the project
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -63,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # this is used while deploying the project
     'django_browser_reload.middleware.BrowserReloadMiddleware', # auto-reload the tailwind
 
 ]
@@ -135,7 +135,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
