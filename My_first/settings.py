@@ -102,7 +102,7 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://djangoblog_z7ml_user:XvtNCOWSzvMyFwUri2mCWUTSXQgQERZd@dpg-d1mkc77diees73apamog-a/djangoblog_z7ml',  # from Render or other host
+        default='postgresql://djangoblog_z7ml_user:XvtNCOWSzvMyFwUri2mCWUTSXQgQERZd@dpg-d1mkc77diees73apamog-a.oregon-postgres.render.com/djangoblog_z7ml',  # from Render or other host
         conn_max_age=600,
         ssl_require=True
     )
