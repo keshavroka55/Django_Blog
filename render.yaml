@@ -1,19 +1,8 @@
+# render.yaml
 services:
   - type: web
-    name: Djangoblog
+    name: my-django-app
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn My_first.wsgi:application
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: postgresql://djangoblog_z7ml_user:XvtNCOWSzvMyFwUri2mCWUTSXQgQERZd@dpg-d1mkc77diees73apamog-a.oregon-postgres.render.com/djangoblog_z7ml
-          property: connectionString
-      - key: DJANGO_SECRET_KEY
-        generateValue: true
-      - key: DEBUG
-        value: False
-
-    postDeploy:
-      - python manage.py migrate
-      - python manage.py collectstatic --noinput
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn My_first.wsgi:application"
+    autoDeploy: true
