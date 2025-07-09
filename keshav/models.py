@@ -15,18 +15,7 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.text[:10]}"
-# this is the first one of blog with some limitations.
-class Blog(models.Model):
-    user = models.ForeignKey(User, on_delete= models.CASCADE)
-    title = models.CharField(max_length=50)
-    subtitle = models.CharField(max_length=300)
-    content = models.TextField()
-    summary = models.TextField(max_length=500)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f"{self.user.username} - {self.title[:50]}"
     
 # this is for the profile photo
 class UserProfile(models.Model):

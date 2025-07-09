@@ -1,8 +1,8 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Message,Blog,Keshav,Chat
-from .forms import Tweetfromtext,Tweetform, SignUpForm, BlogForm,KeshavForm,ChartForm
+from .models import Message,Keshav
+from .forms import Tweetfromtext,Tweetform, SignUpForm,KeshavForm
 from django.contrib.auth import login
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
@@ -59,30 +59,6 @@ def tweet_delete(request, tweet_id):
     return render (request,'tweet/tweet_delete.html',{'tweet': tweet})
 
 
-@login_required    
-def blog_edit(request,blog_id):
-    blog = get_object_or_404(Blog,pk=blog_id, user= request.user)
-    if request.method == 'POST':
-        blog_form = BlogForm(request.POST, request.FILES,instance=blog)
-        if blog_form.is_valid():
-            blog = blog_form.save(commit=False)
-            blog.user = request.user
-            blog.save()
-            return redirect('blog_list')
-        else:
-            print(f"keshav. {blog_form.errors}")        
-    else:
-        blog_form = BlogForm(instance=blog) # this is resposible for show the previous text form model.
-    return render (request,'tweet/blog_edit.html',{'blog_form': blog_form})
-@login_required
-def blog_delete(request, blog_id):
-    blog = get_object_or_404(Blog,pk=blog_id, user = request.user)
-    if request.method == 'POST':
-        blog.delete()
-        return redirect('blog_list')
-    return render (request,'tweet/blog_delete.html',{'blog': blog})
-
-
 
 def SignUp_view(request):
     if request.method == 'POST':
@@ -96,23 +72,6 @@ def SignUp_view(request):
     return render(request,'registration/register.html', {'form': form})
 
 
-def blog_list(request):
-    blogs = Blog.objects.all().order_by('-created_at')
-    return render (request,'tweet/blog_list.html',{'blogs': blogs})
-
-@login_required
-def blog_create(request):
-    if request.method == 'POST':
-        blog_form = BlogForm(request.POST, request.FILES)
-        if blog_form.is_valid():
-            blog = blog_form.save(commit=False)
-            blog.user = request.user
-            blog.save()
-            return redirect('tweet_list')
-
-    else:
-        blog_form = BlogForm()
-        return render (request, 'tweet/blog_create.html',{'blog_form':blog_form})
     
 @login_required
 def profile_view(request):
@@ -225,8 +184,7 @@ def keshav_edit(request,pk):
             return redirect('keshav_list')
         else:
             print(f"keshav. {form.errors}")        
-    else:
-        form = BlogForm(instance=blog) # this is resposible for show the previous text form model.
+
     return render (request,'new/keshav_edit.html',{'form': form})
 
 # Delete blog
@@ -238,32 +196,3 @@ def keshav_delete(request, pk):
         blog.delete()
         return redirect('keshav_list')
     return render(request,'new/keshav_delete.html',{'blog':blog})
-
-# this chat features
-
-@login_required
-def send_message(request, user_id):
-    print("Keshav Chat Send Messages..")
-    receiver = get_object_or_404(User,id = user_id) # error: missing one positional argument.
-    
-    messages = Chat.objects.filter(
-        sender__in= [request.user,receiver],
-        receiver__in= [request.user,receiver]
-    ).order_by('timestamp')
-    if request.method == 'POST':
-        form = ChartForm(request.POST)
-        if form.is_valid():
-            msg = form.save(commit=False) # create a message object but not save in the database.
-            msg.sender = request.user
-            msg.receiver = receiver 
-            msg.save()
-            return redirect('send',user_id=receiver.id)
-    else:
-        form = ChartForm()
-    users = User.objects.exclude(id=request.user.id)
-    return render (request, 'chat/send_message.html',{'users':users,'form': form,'messages':messages,'receiver':receiver,'user':request.user})
-
-@login_required
-def select_user_to_chat(request):
-    users = User.objects.exclude(id=request.user.id)
-    return render(request, 'chat/select_user.html', {'users': users})

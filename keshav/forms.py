@@ -1,6 +1,6 @@
 from django import forms
 from django.db import models
-from .models import Message,Blog,Keshav,Chat
+from .models import Message,Keshav
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import UserProfile
@@ -25,10 +25,7 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email','password1','password2')
 
-class BlogForm(forms.ModelForm):
-    class Meta:
-        model = Blog
-        fields = ['title','subtitle','content','summary']
+
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -45,11 +42,3 @@ class KeshavForm(forms.ModelForm):
     class Meta:
         model = Keshav
         fields = ['title','photo','subtitle','category','content','summary']
-
-class ChartForm(forms.ModelForm):
-    class Meta:
-        model = Chat
-        fields = ['content']
-        widgets = {
-            'content': forms.TextInput(attrs={'class': 'form-control','placeholder':'Type Your Messages....'})
-        }
