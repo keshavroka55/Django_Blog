@@ -1,12 +1,12 @@
 # Django Blog Web App
 
-A simple **Blog Creating and Sharing web application** built while learning Django. This project is a hands-on implementation of all the concepts I learned during my Django journey.
+A simple **Blog and Tweet Creating and Sharing web application** built while learning Django. This project is a hands-on implementation of all the concepts I learned during my Django journey.
 
 ---
 
 ## Features
 
-- Create, edit, and delete blog posts  
+- Create, edit, and delete blog & tweet posts  
 - View a list of all blog posts and post details  
 - Basic user authentication (login and registration)  
 - Simple and clean user interface  
