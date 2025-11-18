@@ -29,3 +29,24 @@ A simple **Blog Creating and Sharing web application** built while learning Djan
    ```bash
    git clone https://github.com/keshavroka55/Django_Blog.git
    cd Django_Blog
+2. Create & activate a virtual environment
+   ```bash
+   python -m venv env
+   .\env\Scripts\activate          # Windows
+   source env/bin/activate       # macOS / Linux
+
+4. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+6. Apply migrations
+   ```bash
+   python manage.py migrate
+8. Run the development server
+   ```bash
+   python manage.py runserver
+10. Open your browser at http://127.0.0.1:8000/ to see the app in action.
+
+
+Purpose
+
+This project was built as a learning exercise to practice Django concepts including models, views, templates, and user authentication.
